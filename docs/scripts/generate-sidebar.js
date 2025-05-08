@@ -42,8 +42,8 @@ function generateSidebarItems(contentDir) {
         }
       }
     } else if (entry.name.endsWith('.md') || entry.name.endsWith('.mdx')) {
-      // Convert file path to relative path from content directory
-      const relativePath = path.relative(path.join(__dirname, '../../content'), fullPath)
+      // Convert file path to relative path from docs directory
+      const relativePath = path.relative(path.join(__dirname, '../docs'), fullPath)
         .replace(/\\/g, '/') // Convert Windows paths to Unix style
         .replace(/\.(md|mdx)$/, ''); // Remove file extension
       
@@ -55,7 +55,7 @@ function generateSidebarItems(contentDir) {
 }
 
 function generateSidebar() {
-  const contentDir = path.join(__dirname, '../../content/Content');
+  const contentDir = path.join(__dirname, '../docs');
   
   // Check if content directory exists
   if (!fs.existsSync(contentDir)) {
