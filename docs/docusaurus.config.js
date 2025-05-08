@@ -8,9 +8,9 @@ const config = {
   favicon: 'img/favicon.ico',
 
   url: 'https://of1r.github.io',
-  baseUrl: '/DevOps-Zero2Hero/',
+  baseUrl: '/DevOps-Zero2Hero-Docs/',
   organizationName: 'of1r',
-  projectName: 'DevOps-Zero2Hero',
+  projectName: 'DevOps-Zero2Hero-Docs',
   trailingSlash: false,
 
   onBrokenLinks: 'throw',
