@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunkdevops_zero2hero_docs=self.webpackChunkdevops_zero2hero_docs||[]).push([[4583],{6107:(e,o,r)=>{r.r(o),r.d(o,{default:()=>u});r(6540);var s=r(6347),d=r(4848);function u(){return(0,d.jsx)(s.rd,{to:"/README"})}}}]);
