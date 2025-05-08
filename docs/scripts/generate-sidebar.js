@@ -22,19 +22,24 @@ function generateSidebarItems(contentDir) {
     if (entry.name === 'README.md') continue;
 
     if (entry.isDirectory()) {
-      // Check if directory has any markdown files
-      const hasMarkdown = fs.readdirSync(fullPath).some(file => 
-        file.endsWith('.md') || file.endsWith('.mdx')
-      );
+      // Get all markdown files in the directory
+      const markdownFiles = fs.readdirSync(fullPath)
+        .filter(file => file.endsWith('.md') || file.endsWith('.mdx'))
+        .filter(file => file !== 'README.md');
 
-      if (hasMarkdown) {
-        items.push({
-          type: 'category',
-          label: entry.name.split('_').map(word => 
-            word.charAt(0).toUpperCase() + word.slice(1)
-          ).join(' '),
-          items: generateSidebarItems(fullPath)
-        });
+      if (markdownFiles.length > 0) {
+        const subItems = generateSidebarItems(fullPath);
+        
+        // Only add the category if it has subitems
+        if (subItems.length > 0) {
+          items.push({
+            type: 'category',
+            label: entry.name.split('_').map(word => 
+              word.charAt(0).toUpperCase() + word.slice(1)
+            ).join(' '),
+            items: subItems
+          });
+        }
       }
     } else if (entry.name.endsWith('.md') || entry.name.endsWith('.mdx')) {
       // Convert file path to relative path from content directory
@@ -51,12 +56,27 @@ function generateSidebarItems(contentDir) {
 
 function generateSidebar() {
   const contentDir = path.join(__dirname, '../../content/Content');
+  
+  // Check if content directory exists
+  if (!fs.existsSync(contentDir)) {
+    console.error(`Content directory not found: ${contentDir}`);
+    process.exit(1);
+  }
+
+  const items = generateSidebarItems(contentDir);
+  
+  // Only create sidebar if there are items
+  if (items.length === 0) {
+    console.error('No content found in the content directory');
+    process.exit(1);
+  }
+
   const sidebar = {
     tutorialSidebar: [
       {
         type: 'category',
         label: 'DevOps Zero2Hero',
-        items: generateSidebarItems(contentDir)
+        items: items
       }
     ]
   };
