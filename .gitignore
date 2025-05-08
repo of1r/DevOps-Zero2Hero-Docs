@@ -1,2 +1,4 @@
 node_modules/
 .DS_Store
+# Temporary content directory
+temp-content/
