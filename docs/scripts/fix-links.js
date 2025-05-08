@@ -3,7 +3,23 @@ const path = require('path');
 
 function fixLinks(content) {
   // Fix links that start with /Content/
-  return content.replace(/\(\/Content\/([^)]+)\)/g, '($1)');
+  let fixedContent = content.replace(/\(\/Content\/([^)]+)\)/g, '($1)');
+  
+  // Fix image paths
+  fixedContent = fixedContent.replace(/!\[([^\]]*)\]\(([^)]+)\)/g, (match, alt, src) => {
+    // If the image path starts with docs/, remove it
+    if (src.startsWith('docs/')) {
+      src = src.replace('docs/', '');
+    }
+    // If the image path starts with static/, keep it as is
+    if (src.startsWith('static/')) {
+      return `![${alt}](${src})`;
+    }
+    // For other paths, ensure they're relative to the static directory
+    return `![${alt}](/static/${src})`;
+  });
+
+  return fixedContent;
 }
 
 function fixFile(filePath) {
@@ -34,9 +50,9 @@ function fixContent() {
     process.exit(1);
   }
 
-  console.log('Fixing markdown links...');
+  console.log('Fixing markdown links and image paths...');
   fixDirectory(contentDir);
-  console.log('Markdown links fixed successfully!');
+  console.log('Markdown links and image paths fixed successfully!');
 }
 
 fixContent(); 
