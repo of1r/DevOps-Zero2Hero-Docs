@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunkdevops_zero2hero_docs=self.webpackChunkdevops_zero2hero_docs||[]).push([[3794],{648:e=>{e.exports=JSON.parse('{"metadata":{"permalink":"/DevOps-Zero2Hero-Docs/blog","page":1,"postsPerPage":10,"totalPages":1,"totalCount":4,"blogDescription":"Blog","blogTitle":"Blog"}}')}}]);
