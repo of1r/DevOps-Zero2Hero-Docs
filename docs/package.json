@@ -5,8 +5,9 @@
   "scripts": {
     "docusaurus": "docusaurus",
     "copy-content": "rm -rf docs && mkdir -p docs && cp -r ../content/Content/* docs/",
-    "start": "npm run copy-content && npm run generate-sidebar && docusaurus start",
-    "build": "npm run copy-content && npm run generate-sidebar && docusaurus build",
+    "clean-content": "node scripts/clean-content.js",
+    "start": "npm run copy-content && npm run clean-content && npm run generate-sidebar && docusaurus start",
+    "build": "npm run copy-content && npm run clean-content && npm run generate-sidebar && docusaurus build",
     "swizzle": "docusaurus swizzle",
     "deploy": "GIT_USER=of1r docusaurus deploy",
     "clear": "docusaurus clear",
