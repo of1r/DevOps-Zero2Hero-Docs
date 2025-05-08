@@ -3,8 +3,30 @@ const path = require('path');
 
 function cleanFile(filePath) {
   const content = fs.readFileSync(filePath, 'utf8');
-  // Remove invalid </img> tags
-  const cleanedContent = content.replace(/<\/img>/g, '');
+  
+  // Remove invalid HTML tags
+  let cleanedContent = content
+    // Remove self-closing img tags
+    .replace(/<img[^>]*\/>/g, '')
+    // Remove closing img tags
+    .replace(/<\/img>/g, '')
+    // Remove any remaining img tags
+    .replace(/<img[^>]*>/g, '')
+    // Remove any paragraph tags
+    .replace(/<\/?p>/g, '')
+    // Remove any div tags
+    .replace(/<\/?div[^>]*>/g, '')
+    // Remove any span tags
+    .replace(/<\/?span[^>]*>/g, '')
+    // Remove any br tags
+    .replace(/<br\s*\/?>/g, '\n')
+    // Remove any hr tags
+    .replace(/<hr\s*\/?>/g, '\n---\n')
+    // Remove any remaining HTML tags
+    .replace(/<[^>]*>/g, '')
+    // Clean up multiple newlines
+    .replace(/\n{3,}/g, '\n\n');
+
   fs.writeFileSync(filePath, cleanedContent);
 }
 
