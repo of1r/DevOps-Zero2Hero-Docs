@@ -1,6 +1,18 @@
 const fs = require('fs');
 const path = require('path');
 
+// Map of old file names to new file names
+const fileMapping = {
+  '01-intro': 'intro',
+  '02-basic-commands': 'basic-commands',
+  '03-dockerfile': 'dockerfile',
+  '04-docker-compose': 'docker-compose',
+  '02-copilot-kickstart': 'copilot-kickstart',
+  '03-copilot-featurs': 'copilot-featurs',
+  '04-copilot-settings': 'copilot-settings',
+  '05-copilot-context': 'copilot-context'
+};
+
 function generateSidebarItems(contentDir) {
   const items = [];
   const entries = fs.readdirSync(contentDir, { withFileTypes: true });
@@ -47,7 +59,15 @@ function generateSidebarItems(contentDir) {
         .replace(/\\/g, '/') // Convert Windows paths to Unix style
         .replace(/\.(md|mdx)$/, ''); // Remove file extension
       
-      items.push(relativePath);
+      // Check if we need to map the file name
+      const pathParts = relativePath.split('/');
+      const fileName = pathParts[pathParts.length - 1];
+      if (fileMapping[fileName]) {
+        pathParts[pathParts.length - 1] = fileMapping[fileName];
+        items.push(pathParts.join('/'));
+      } else {
+        items.push(relativePath);
+      }
     }
   }
 
