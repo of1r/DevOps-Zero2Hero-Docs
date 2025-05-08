@@ -4,15 +4,16 @@
   "private": true,
   "scripts": {
     "docusaurus": "docusaurus",
-    "start": "docusaurus start",
-    "build": "docusaurus build",
+    "start": "npm run generate-sidebar && docusaurus start",
+    "build": "npm run generate-sidebar && docusaurus build",
     "swizzle": "docusaurus swizzle",
     "deploy": "GIT_USER=of1r docusaurus deploy",
     "clear": "docusaurus clear",
     "serve": "docusaurus serve",
     "write-translations": "docusaurus write-translations",
     "write-heading-ids": "docusaurus write-heading-ids",
-    "typecheck": "tsc"
+    "typecheck": "tsc",
+    "generate-sidebar": "node scripts/generate-sidebar.js"
   },
   "dependencies": {
     "@docusaurus/core": "^3.1.0",
